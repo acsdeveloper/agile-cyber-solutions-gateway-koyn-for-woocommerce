@@ -5,7 +5,6 @@ Plugin URI:  https://agilecyber.com/
 Description: Adds Koyn redirect payment gateway to WooCommerce.
 Version:     1.0.0
 Author:      Agile Cyber Solutions
-Author URI:  https://agilecyber.com/
 License:     GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: koyn-gateway-for-woocommerce
