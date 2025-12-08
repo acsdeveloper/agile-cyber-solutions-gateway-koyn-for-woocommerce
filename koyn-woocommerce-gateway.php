@@ -7,7 +7,7 @@ Version:     1.0.0
 Author:      Your Name / Company
 License:     GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: koyn-gateway-for-wooCommerce
+Text Domain: koyn-gateway-for-woocommerce
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
