@@ -5,8 +5,9 @@ Plugin URI:  https://your-company.com/
 Description: Adds Koyn redirect payment gateway to WooCommerce.
 Version:     1.0.0
 Author:      Your Name / Company
-Text Domain: koyn-gateway
-Domain Path: /languages
+License:     GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: koyn-gateway-for-wooCommerce
 */
 
 if ( ! defined( 'ABSPATH' ) ) {

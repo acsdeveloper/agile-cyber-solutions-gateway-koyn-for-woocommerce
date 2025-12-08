@@ -21,8 +21,8 @@ Adds Koyn redirect payment gateway to WooCommerce.
 To receive payment confirmations, you must configure the Webhook URL in your Koyn Dashboard.
 
 **Webhook URL:**
-`https://www.hrissolutionsltd.com/?wc-api=koyn_gateway`
-*(Replace `https://www.hrissolutionsltd.com/` with your actual domain)*
+`https://www.yoursite.com/?wc-api=koyn_gateway`
+*(Replace `https://www.yoursite.com/` with your actual domain)*
 
 ## Logging
 
