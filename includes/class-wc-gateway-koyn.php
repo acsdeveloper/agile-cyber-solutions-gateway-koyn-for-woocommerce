@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class WC_Gateway_Koyn
  */
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 class WC_Gateway_Koyn extends WC_Payment_Gateway {
 
     /**
@@ -15,8 +16,8 @@ class WC_Gateway_Koyn extends WC_Payment_Gateway {
         $this->id                 = 'koyn_gateway';
         $this->icon               = ''; // URL to an icon if available
         $this->has_fields         = false;
-        $this->method_title       = __( 'Koyn', 'koyn-gateway-for-woocommerce' );
-        $this->method_description = __( 'Redirect customers to Koyn for payment.', 'koyn-gateway-for-woocommerce' );
+        $this->method_title       = __( 'Koyn', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' );
+        $this->method_description = __( 'Redirect customers to Koyn for payment.', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' );
 
         // Load the settings
         $this->init_form_fields();
@@ -41,56 +42,56 @@ class WC_Gateway_Koyn extends WC_Payment_Gateway {
     public function init_form_fields() {
         $this->form_fields = array(
             'enabled' => array(
-                'title'   => __( 'Enable/Disable', 'koyn-gateway-for-woocommerce' ),
+                'title'   => __( 'Enable/Disable', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'type'    => 'checkbox',
-                'label'   => __( 'Enable Koyn Payment', 'koyn-gateway-for-woocommerce' ),
+                'label'   => __( 'Enable Koyn Payment', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'default' => 'yes',
             ),
             'title' => array(
-                'title'       => __( 'Title', 'koyn-gateway-for-woocommerce' ),
+                'title'       => __( 'Title', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'type'        => 'text',
-                'description' => __( 'This controls the title which the user sees during checkout.', 'koyn-gateway-for-woocommerce' ),
-                'default'     => __( 'Koyn Payment', 'koyn-gateway-for-woocommerce' ),
+                'description' => __( 'This controls the title which the user sees during checkout.', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
+                'default'     => __( 'Koyn Payment', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'desc_tip'    => true,
             ),
             'description' => array(
-                'title'       => __( 'Description', 'koyn-gateway-for-woocommerce' ),
+                'title'       => __( 'Description', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'type'        => 'textarea',
-                'description' => __( 'Payment method description that the customer will see on your checkout.', 'koyn-gateway-for-woocommerce' ),
-                'default'     => __( 'Pay securely via Koyn.', 'koyn-gateway-for-woocommerce' ),
+                'description' => __( 'Payment method description that the customer will see on your checkout.', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
+                'default'     => __( 'Pay securely via Koyn.', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'desc_tip'    => true,
             ),
             'merchant_id' => array(
-                'title'       => __( 'Merchant ID', 'koyn-gateway-for-woocommerce' ),
+                'title'       => __( 'Merchant ID', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'type'        => 'text',
-                'description' => __( 'Your Koyn Merchant ID.', 'koyn-gateway-for-woocommerce' ),
+                'description' => __( 'Your Koyn Merchant ID.', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'default'     => '',
             ),
             'api_key' => array(
-                'title'       => __( 'API Key', 'koyn-gateway-for-woocommerce' ),
+                'title'       => __( 'API Key', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'type'        => 'password',
-                'description' => __( 'Your Koyn API Key.', 'koyn-gateway-for-woocommerce' ),
+                'description' => __( 'Your Koyn API Key.', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'default'     => '',
             ),
             'webhook_secret' => array(
-                'title'       => __( 'Webhook Secret', 'koyn-gateway-for-woocommerce' ),
+                'title'       => __( 'Webhook Secret', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'type'        => 'text',
-                'description' => __( 'Secret used to verify webhooks from Koyn (if applicable).', 'koyn-gateway-for-woocommerce' ),
+                'description' => __( 'Secret used to verify webhooks from Koyn (if applicable).', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'default'     => '',
             ),
             'sandbox' => array(
-                'title'       => __( 'Sandbox Mode', 'koyn-gateway-for-woocommerce' ),
+                'title'       => __( 'Sandbox Mode', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'type'        => 'checkbox',
-                'label'   => __( 'Enable Sandbox/Test Mode', 'koyn-gateway-for-woocommerce' ),
+                'label'   => __( 'Enable Sandbox/Test Mode', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'default' => 'no',
             ),
             'logging' => array(
-                'title'       => __( 'Logging', 'koyn-gateway-for-woocommerce' ),
+                'title'       => __( 'Logging', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'type'        => 'checkbox',
-                'label'       => __( 'Log debug messages', 'koyn-gateway-for-woocommerce' ),
+                'label'       => __( 'Log debug messages', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ),
                 'default'     => 'no',
                 // translators: %s: Path to the log file location
-                'description' => sprintf( __( 'Log events to %s', 'koyn-gateway-for-woocommerce' ), '<code>woocommerce/logs/koyn_gateway...</code>' ),
+                'description' => sprintf( __( 'Log events to %s', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ), '<code>woocommerce/logs/koyn_gateway...</code>' ),
             ),
         );
     }
@@ -108,7 +109,7 @@ class WC_Gateway_Koyn extends WC_Payment_Gateway {
         $logger = new Koyn_Logger( $this->logging );
 
         // 1. Set Order to On Hold
-        $order->update_status( 'on-hold', __( 'Awaiting Koyn payment', 'koyn-gateway-for-woocommerce' ) );
+        $order->update_status( 'on-hold', __( 'Awaiting Koyn payment', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ) );
 
         // 2. Prepare Payload
         // Using structure from prompt skeleton and API expectations
@@ -136,7 +137,7 @@ class WC_Gateway_Koyn extends WC_Payment_Gateway {
 
         // 4. Handle Response
         if ( is_wp_error( $response ) ) {
-            wc_add_notice( __( 'Payment error:', 'koyn-gateway-for-woocommerce' ) . ' ' . $response->get_error_message(), 'error' );
+            wc_add_notice( __( 'Payment error:', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ) . ' ' . $response->get_error_message(), 'error' );
             return array( 'result' => 'failure' );
         }
 
@@ -170,8 +171,8 @@ class WC_Gateway_Koyn extends WC_Payment_Gateway {
         }
 
         // If we get here, API call succeeded but no URL
-        $error_msg = isset( $response['message'] ) ? $response['message'] : __( 'Unknown error from payment provider.', 'koyn-gateway-for-woocommerce' );
-        wc_add_notice( __( 'Payment error:', 'koyn-gateway-for-woocommerce' ) . ' ' . $error_msg, 'error' );
+        $error_msg = isset( $response['message'] ) ? $response['message'] : __( 'Unknown error from payment provider.', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' );
+        wc_add_notice( __( 'Payment error:', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ) . ' ' . $error_msg, 'error' );
         return array( 'result' => 'failure' );
     }
 }

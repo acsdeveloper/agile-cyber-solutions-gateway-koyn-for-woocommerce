@@ -1,4 +1,4 @@
-=== Koyn Gateway for WooCommerce ===
+=== Agile Cyber Solutions Gateway with Koyn for WooCommerce ===
 Contributors: agilecybersolutions
 Tags: woocommerce, payment, gateway, koyn, card
 Requires at least: 5.8
@@ -15,7 +15,7 @@ Adds Koyn redirect payment gateway to WooCommerce.
 
 == Installation ==
 
-1. Upload the `koyn-woocommerce-gateway` folder to the `/wp-content/plugins/` directory.
+1. Upload the `agile-cyber-solutions-gateway-koyn-for-woocommerce` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Go to **WooCommerce > Settings > Payments** and manage **Koyn**.
 4. Enable the gateway and enter your API credentials.

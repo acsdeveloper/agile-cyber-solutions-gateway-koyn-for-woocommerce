@@ -1,10 +1,14 @@
-# Koyn Gateway for WooCommerce
+# Agile Cyber Solutions Gateway with Koyn for WooCommerce
+
+Adds Koyn redirect payment gateway to WooCommerce for seamless payment processing.
+
+## Description
 
 Adds Koyn redirect payment gateway to WooCommerce.
 
 ## Installation
 
-1. Upload the `koyn-woocommerce-gateway` folder to the `/wp-content/plugins/` directory.
+1. Upload the `agile-cyber-solutions-gateway-koyn-for-woocommerce` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Go to **WooCommerce > Settings > Payments** and manage **Koyn**.
 4. Enable the gateway and enter your API credentials.
@@ -18,12 +22,13 @@ Adds Koyn redirect payment gateway to WooCommerce.
 
 ## Webhook Setup
 
-To receive payment confirmations, you must configure the Webhook URL in your Koyn Dashboard.
+To receive payment confirmations, configure the Webhook URL in your Koyn Dashboard.
 
-**Webhook URL:**
-`https://www.yoursite.com/?wc-api=koyn_gateway`
-*(Replace `https://www.yoursite.com/` with your actual domain)*
+**Webhook URL:**  
+`https://www.yoursite.com/?wc-api=koyn_gateway`  
+(Replace the domain with your actual site URL)
 
 ## Logging
 
-Enable logging in the settings to debug API requests and webhooks. Logs can be found in **WooCommerce > Status > Logs**.
+Enable logging in the plugin settings to debug API requests and webhooks.  
+Logs appear in **WooCommerce > Status > Logs**.
