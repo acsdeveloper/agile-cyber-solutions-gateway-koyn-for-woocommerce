@@ -1,13 +1,13 @@
 <?php
 /*
-Plugin Name: Koyn Gateway for WooCommerce
+Plugin Name: Agile Cyber Solutions Gateway with Koyn for WooCommerce
 Plugin URI:  https://agilecyber.com/
 Description: Adds Koyn redirect payment gateway to WooCommerce.
 Version:     1.0.0
 Author:      Agile Cyber Solutions
 License:     GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: koyn-gateway-for-woocommerce
+Text Domain: agile-cyber-solutions-gateway-koyn-for-woocommerce
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
