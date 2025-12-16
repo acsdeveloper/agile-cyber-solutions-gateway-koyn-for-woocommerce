@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class WC_Gateway_Koyn
  */
 // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
-class WC_Gateway_Koyn extends WC_Payment_Gateway {
+class WC_Gateway_ACS_Koyn extends WC_Payment_Gateway {
 
     /**
      * Constructor.
@@ -106,7 +106,7 @@ class WC_Gateway_Koyn extends WC_Payment_Gateway {
         $order = wc_get_order( $order_id );
         
         // Initialize Logger
-        $logger = new Koyn_Logger( $this->logging );
+        $logger = new ACS_Koyn_Logger( $this->logging );
 
         // 1. Set Order to On Hold
         $order->update_status( 'on-hold', __( 'Awaiting Koyn payment', 'agile-cyber-solutions-gateway-koyn-for-woocommerce' ) );
@@ -132,7 +132,7 @@ class WC_Gateway_Koyn extends WC_Payment_Gateway {
         );
 
         // 3. Call Koyn API
-        $client = new Koyn_API_Client( $this->api_key, $this->merchant_id, $this->testmode, $logger );
+        $client = new ACS_Koyn_API_Client( $this->api_key, $this->merchant_id, $this->testmode, $logger );
         $response = $client->create_payment( $payload );
 
         // 4. Handle Response

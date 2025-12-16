@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Handles communication with the Koyn API.
  */
-class Koyn_API_Client {
+class ACS_Koyn_API_Client {
 
     private $api_key;
     private $merchant_id;

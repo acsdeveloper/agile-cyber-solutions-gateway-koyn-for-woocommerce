@@ -40,6 +40,20 @@ To receive payment confirmations, configure the Webhook URL in your Koyn Dashboa
 Enable logging in the plugin settings to debug API requests and webhooks.  
 Logs appear in **WooCommerce > Status > Logs**.
 
+== External Services ==
+
+This plugin uses the Koyn API to process payments.
+
+**Service**: Koyn Payment Gateway
+**Usage**: To initialize payment sessions and redirect users for secure payment.
+**Data Sent**: 
+- Order Amount and Currency
+- Order ID
+- Customer Name, Email, and Phone
+- Return and Webhook URLs
+**Privacy Policy**: https://koynupi.link/ (Available via popup on the website)
+**Terms of Service**: https://koynupi.link/ (Available via popup on the website)
+
 == License ==
 
 This plugin is free software, released under the terms of the GNU General Public License, version 2 or any later version published by the Free Software Foundation.
