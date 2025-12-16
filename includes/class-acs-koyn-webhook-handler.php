@@ -30,8 +30,8 @@ class ACS_Koyn_Webhook_Handler {
         // Security: Verify Signature
         // We expect a header 'X-Koyn-Signature' containing the HMAC SHA256 signature of the payload using the secret.
         if ( ! empty( $webhook_secret ) ) {
-            $headers = $this->get_request_headers();
-            $received_signature = isset( $headers['X-Koyn-Signature'] ) ? $headers['X-Koyn-Signature'] : '';
+            $headers = array_change_key_case( $this->get_request_headers(), CASE_LOWER );
+            $received_signature = isset( $headers['x-koyn-signature'] ) ? $headers['x-koyn-signature'] : '';
             
             // Calculate our signature
             $calculated_signature = hash_hmac( 'sha256', $input, $webhook_secret );
@@ -41,6 +41,11 @@ class ACS_Koyn_Webhook_Handler {
                 wp_send_json( array( 'status' => 'error', 'message' => 'Invalid signature' ), 403 );
             }
         }
+
+        // Sanitize and Validate Inputs
+        $order_id = isset( $data['order_id'] ) ? absint( $data['order_id'] ) : 0;
+        $transaction_id = isset( $data['transaction_id'] ) ? sanitize_text_field( $data['transaction_id'] ) : '';
+        $status = isset( $data['status'] ) ? sanitize_text_field( $data['status'] ) : '';
 
         // Extract Order ID
         // Payload example from docs doesn't show structure of callback clearly, 
@@ -62,10 +67,7 @@ class ACS_Koyn_Webhook_Handler {
         // Check payment status
         // Doc says: "success" or "failed"
 
-        // Sanitize and Validate Inputs
-        $order_id = isset( $data['order_id'] ) ? absint( $data['order_id'] ) : 0;
-        $transaction_id = isset( $data['transaction_id'] ) ? sanitize_text_field( $data['transaction_id'] ) : '';
-        $status = isset( $data['status'] ) ? sanitize_text_field( $data['status'] ) : '';
+
 
         if ( 'success' === $status ) {
             // Check if already paid to avoid double processing
