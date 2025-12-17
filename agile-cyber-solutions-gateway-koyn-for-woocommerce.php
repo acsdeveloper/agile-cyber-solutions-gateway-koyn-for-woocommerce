@@ -8,36 +8,37 @@ Author:      Agile Cyber Solutions
 License:     GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: agile-cyber-solutions-gateway-koyn-for-woocommerce
+Requires Plugins: woocommerce
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-add_action( 'plugins_loaded', 'koyn_init_gateway', 11 );
+add_action( 'plugins_loaded', 'acs_koyn_init_gateway', 11 );
 
-function koyn_init_gateway() {
+function acs_koyn_init_gateway() {
     // Check if WooCommerce is active
     if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
         return;
     }
 
     // Include required classes
-    require_once dirname( __FILE__ ) . '/includes/class-koyn-logger.php';
-    require_once dirname( __FILE__ ) . '/includes/class-koyn-api-client.php';
-    require_once dirname( __FILE__ ) . '/includes/class-koyn-webhook-handler.php';
-    require_once dirname( __FILE__ ) . '/includes/class-wc-gateway-koyn.php';
+    require_once dirname( __FILE__ ) . '/includes/class-acs-koyn-logger.php';
+    require_once dirname( __FILE__ ) . '/includes/class-acs-koyn-api-client.php';
+    require_once dirname( __FILE__ ) . '/includes/class-acs-koyn-webhook-handler.php';
+    require_once dirname( __FILE__ ) . '/includes/class-wc-gateway-acs-koyn.php';
 
     // Register the gateway
-    add_filter( 'woocommerce_payment_gateways', 'koyn_add_gateway_class' );
+    add_filter( 'woocommerce_payment_gateways', 'acs_koyn_add_gateway_class' );
 
     // Initialize the webhook handler
     // We hook to woocommerce_api_{key} which is the standard way to handle WC webhooks for gateways
     // The URL will be home_url( '/?wc-api=koyn_gateway' )
-    add_action( 'woocommerce_api_koyn_gateway', array( new Koyn_Webhook_Handler(), 'handle' ) );
+    add_action( 'woocommerce_api_koyn_gateway', array( new ACS_Koyn_Webhook_Handler(), 'handle' ) );
 }
 
-function koyn_add_gateway_class( $methods ) {
-    $methods[] = 'WC_Gateway_Koyn';
+function acs_koyn_add_gateway_class( $methods ) {
+    $methods[] = 'WC_Gateway_ACS_Koyn';
     return $methods;
 }

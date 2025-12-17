@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Wrapper for WC_Logger
  */
-class Koyn_Logger {
+class ACS_Koyn_Logger {
 
     /**
      * @var WC_Logger_Interface

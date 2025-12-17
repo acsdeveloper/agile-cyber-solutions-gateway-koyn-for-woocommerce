@@ -4,7 +4,7 @@
  *
  * Unit tests for Koyn Gateway.
  */
-class Test_Koyn_Gateway extends WP_UnitTestCase {
+class Test_ACS_Koyn_Gateway extends WP_UnitTestCase {
 
     public function setUp(): void {
         parent::setUp();
@@ -25,7 +25,7 @@ class Test_Koyn_Gateway extends WP_UnitTestCase {
         add_filter( 'pre_http_request', array( $this, 'mock_api_success' ), 10, 3 );
 
         $order = WC_Helper_Order::create_order(); // Helper from WC test suite
-        $gateway = new WC_Gateway_Koyn();
+        $gateway = new WC_Gateway_ACS_Koyn();
         $result = $gateway->process_payment( $order->get_id() );
 
         $this->assertEquals( 'success', $result['result'] );
@@ -47,7 +47,7 @@ class Test_Koyn_Gateway extends WP_UnitTestCase {
                 'response' => array( 'code' => 200, 'message' => 'OK' ),
                 'body'     => json_encode( array(
                     'status' => 'success',
-                    'token'  => 'mock_token_123',
+                    'data'   => array( 'token'  => 'mock_token_123' ),
                 ) ),
             );
         }
