@@ -60,4 +60,18 @@ This plugin is free software, released under the terms of the GNU General Public
 
 You may use, modify, and redistribute this plugin, provided that any derivative works are also licensed under the GNU General Public License.
 
-Full license text: https://www.gnu.org/lice
+Full license text: https://www.gnu.org/licenses/gpl-2.0.html
+
+== External Services ==
+
+This plugin connects to a 3rd party external service (Koyn Payment Gateway) to process payments.
+
+**Service**: Koyn Payment Gateway
+**Usage**: To initialize payment sessions and redirect users for secure payment.
+**Data Sent**: 
+- Order Amount and Currency
+- Order ID
+- Customer Name, Email, and Phone
+- Return and Webhook URLs
+**Privacy Policy**: https://koynupi.link/ (Available via popup on the website)
+**Terms of Service**: https://koynupi.link/ (Available via popup on the website)
