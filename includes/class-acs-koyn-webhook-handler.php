@@ -15,47 +15,61 @@ class ACS_Koyn_Webhook_Handler {
     public function handle() {
         $input = file_get_contents( 'php://input' );
         $data  = json_decode( $input, true );
+
+        // Validate JSON
+        if ( json_last_error() !== JSON_ERROR_NONE ) {
+            wp_send_json( array( 'status' => 'error', 'message' => 'Invalid JSON' ), 400 );
+        }
         
         $settings = get_option( 'woocommerce_koyn_gateway_settings', array() );
         $logging_enabled = isset( $settings['logging'] ) && 'yes' === $settings['logging'];
         $webhook_secret  = isset( $settings['webhook_secret'] ) ? $settings['webhook_secret'] : '';
         
         $logger = new ACS_Koyn_Logger( $logging_enabled );
-        $logger->info( 'Webhook received', array( 'payload' => $data ) );
+
+        // Security: Enforce Webhook Secret Configuration
+        if ( empty( $webhook_secret ) ) {
+            // Log this as a critical error so admin knows to configure it
+            $logger->error( 'Webhook secret is not configured in settings. Request rejected.' );
+            wp_send_json( array( 'status' => 'error', 'message' => 'Configuration error' ), 500 );
+        }
+
+        // Security: Verify Signature
+        // We expect a header 'X-Koyn-Signature' containing the HMAC SHA256 signature of the payload using the secret.
+        $headers = array_change_key_case( $this->get_request_headers(), CASE_LOWER );
+        $received_signature = isset( $headers['x-koyn-signature'] ) ? $headers['x-koyn-signature'] : '';
+        
+        // Calculate our signature
+        $calculated_signature = hash_hmac( 'sha256', $input, $webhook_secret );
+        
+        if ( ! hash_equals( $calculated_signature, $received_signature ) ) {
+            // Log partial signature to help debugging but not full secret
+            $logger->error( 'Webhook signature verification failed', array( 'received' => $received_signature ) );
+            wp_send_json( array( 'status' => 'error', 'message' => 'Invalid signature' ), 403 );
+        }
+
+        // Sanitize and Validate Inputs for Logic and Logging
+        // Prepare a sanitized array for logging to avoid log injection
+        $sanitized_log_data = array();
+        if ( isset( $data['order_id'] ) ) {
+            $sanitized_log_data['order_id'] = absint( $data['order_id'] );
+        }
+        if ( isset( $data['status'] ) ) {
+            $sanitized_log_data['status'] = sanitize_text_field( $data['status'] );
+        }
+        if ( isset( $data['transaction_id'] ) ) {
+            $sanitized_log_data['transaction_id'] = sanitize_text_field( $data['transaction_id'] );
+        }
+
+        $logger->info( 'Webhook received', array( 'payload' => $sanitized_log_data ) );
 
         if ( empty( $data ) ) {
             wp_send_json( array( 'status' => 'error', 'message' => 'Empty payload' ), 400 );
         }
 
-        // Security: Verify Signature
-        // We expect a header 'X-Koyn-Signature' containing the HMAC SHA256 signature of the payload using the secret.
-        if ( ! empty( $webhook_secret ) ) {
-            $headers = array_change_key_case( $this->get_request_headers(), CASE_LOWER );
-            $received_signature = isset( $headers['x-koyn-signature'] ) ? $headers['x-koyn-signature'] : '';
-            
-            // Calculate our signature
-            $calculated_signature = hash_hmac( 'sha256', $input, $webhook_secret );
-            
-            if ( ! hash_equals( $calculated_signature, $received_signature ) ) {
-                $logger->error( 'Webhook signature verification failed', array( 'received' => $received_signature, 'calculated' => $calculated_signature ) );
-                wp_send_json( array( 'status' => 'error', 'message' => 'Invalid signature' ), 403 );
-            }
-        }
-
-        // Sanitize and Validate Inputs
         $order_id = isset( $data['order_id'] ) ? absint( $data['order_id'] ) : 0;
         $transaction_id = isset( $data['transaction_id'] ) ? sanitize_text_field( $data['transaction_id'] ) : '';
         $status = isset( $data['status'] ) ? sanitize_text_field( $data['status'] ) : '';
-
-        // Extract Order ID
-        // Payload example from docs doesn't show structure of callback clearly, 
-        // but typically it has 'order_id' (our ID) and 'transaction_id'.
-        // Prompt skeleton used: $data['transaction_id'] and extract_order_id($data).
-        
-
-        
-        // Sometimes order_id in callback is the Merchant Order ID we sent. 
-        // If we sent WC order ID, it should be here.
         
         $order = wc_get_order( $order_id );
         
@@ -63,11 +77,6 @@ class ACS_Koyn_Webhook_Handler {
             $logger->error( 'Webhook order not found', array( 'order_id' => $order_id ) );
             wp_send_json( array( 'status' => 'error', 'message' => 'Order not found' ), 404 );
         }
-
-        // Check payment status
-        // Doc says: "success" or "failed"
-
-
 
         if ( 'success' === $status ) {
             // Check if already paid to avoid double processing
